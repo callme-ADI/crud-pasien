@@ -1,0 +1,73 @@
+//buat no 4
+
+<?php
+    include "koneksi.php";
+?>
+<style>
+table {
+    text-align: left;
+}
+</style>
+<table>
+    <form action="#" method="post">
+        <tr>
+            <th>No Pinjaman</th>
+            <td><input type="text" class="form-control" name="tnopinjaman"></td>
+        </tr>
+        <tr>
+            <th>No Anggota</th>
+            <td><input type="text" class="form-control" name="tnoanggota"></td>
+        </tr>
+        <tr>
+            <th>Tanggal</th>
+            <td><input type="date" class="form-control" name="tdate"></td>
+        </tr>
+        <tr>
+            <th>Nominal</th>
+            <td><input type="number" class="form-control" name="tnominal"></td>
+        </tr>
+        <tr>
+            <th>Tenor</th>
+            <td><select name="ttenor">
+                    <option value="3">3 Bulan</option>
+                    <option value="9">9 Bulan</option>
+                    <option value="15">15 Bulan</option>
+                </select>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" name="bok" class="btn btn-sm btn-primary pull-right" value="Simpan">
+            </td>
+        </tr>
+    </form>
+</table>
+
+<?php
+
+if(isset($_POST['bok'])) {
+    $no_pinjaman = $_POST['tnopinjaman'];
+    $no_anggota = $_POST['tnoanggota'];
+    $Tgl_pinjaman = $_POST['tdate'];
+    $nominal = $_POST['tnominal'];
+    $Tenor = $_POST['ttenor'];
+
+        if ($Tenor == 3 && $nominal <= 1500000){
+            $result = mysqli_query($mysqli, "insert into pinjaman(no_pinjaman, no_anggota, Tgl_pinjaman, nominal, Tenor) VALUES('$no_pinjaman','$no_anggota','$Tgl_pinjaman','$nominal','$Tenor')");
+            echo "BERHASIL";
+        } elseif ($Tenor == 3 && $nominal > 1500000){
+            echo "Tenor 3 bulan maksimal 1500000";
+        } elseif ($Tenor == 9 && $nominal <= 4500000){
+            $result = mysqli_query($mysqli, "insert into pinjaman(no_pinjaman, no_anggota, Tgl_pinjaman, nominal, Tenor) VALUES('$no_pinjaman','$no_anggota','$Tgl_pinjaman','$nominal','$Tenor')");
+            echo "BERHASIL";
+        } elseif ($Tenor == 9 && $nominal > 4500000){
+            echo "Tenor 9 bulan maksimal 4500000";
+        } elseif ($Tenor == 15 && $nominal <= 9000000){
+            $result = mysqli_query($mysqli, "insert into pinjaman(no_pinjaman, no_anggota, Tgl_pinjaman, nominal, Tenor) VALUES('$no_pinjaman','$no_anggota','$Tgl_pinjaman','$nominal','$Tenor')");
+            echo "BERHASIL";
+        } elseif ($Tenor == 15 && $nominal > 9000000){
+            echo "tenor 15 bulan maksimal 9000000";
+        }
+     // include database connection file
+    include_once("koneksi.php");
+}
+?>
